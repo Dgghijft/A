@@ -1,0 +1,24 @@
+import pandas as pd
+import holoviews as hv
+from holoviews import opts
+hv.extension('bokeh')
+
+# Example data
+data = {
+    'source': ['BX', '830', 'B60', 'B90', '890+', 'BX', '830', 'B60', 'B90', '890+', 'BX', '830', 'B60', 'B90', '890+'],
+    'target': ['May', 'May', 'May', 'May', 'May', 'June', 'June', 'June', 'June', 'June', 'April', 'April', 'April', 'April', 'April'],
+    'value': [100, 150, 80, 60, 30, 90, 130, 70, 55, 25, 110, 140, 75, 65, 35]
+}
+
+df = pd.DataFrame(data)
+
+# Create the Sankey object
+sankey = hv.Sankey(df)
+
+# Set options
+sankey.opts(
+    opts.Sankey(width=800, height=600, labels='index', node_color='index', edge_color='source', edge_line_width=hv.dim('value')*0.1)
+)
+
+# Display the Sankey diagram
+hv.output(sankey)
